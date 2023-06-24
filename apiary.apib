@@ -1,0 +1,172 @@
+FORMAT: 1A
+HOST: https://polls.apiblueprint.org/
+
+# LeFestindeFils
+
+A API LeFestindeFils é uma ferramenta simplesmente projetada para atender às necessidades de uma loja de crochê. Com recursos cuidadosamente desenvolvidos, essa API oferece uma plataforma confiável para gerenciar o inventário, as vendas e as informações dos clientes, ajudando a impulsionar o sucesso do seu negócio.
+
+
+## Coleção: Serviços [/Servicos]
+
+### Listar Serviços [GET]
+
++ Response 200 (application/json)
+
+        [    
+            {   
+                "id":01,
+                "nome":"Crochês",
+                "descricao":"Os Crochês Exclusivos são verdadeiras obras de arte feitas à mão, criadas com amor, dedicação e habilidade incomparáveis. Nossa marca busca trazer elegância, estilo e um toque único para o mundo do crochê, oferecendo produtos feitos sob medida para atender aos gostos e necessidades dos nossos clientes mais exigentes."
+            },
+            {   
+                "id":02,
+                "nome":"Amigurumis",
+                "descricao":"Os Amigurumis Encantadores são adoráveis e fofos bichinhos de crochê que vão derreter seu coração! Feitos à mão com extremo cuidado e habilidade, eles trazem alegria, diversão e um toque de magia para qualquer ambiente."
+            },
+            {   
+                "id":03,
+                "nome":"Biscuit",
+                "descricao":"As Delícias em Biscuit são criações únicas e encantadoras que vão surpreender seus sentidos! Feitas à mão com maestria e atenção aos detalhes, nossas peças em biscuit trazem um toque especial para qualquer ocasião."
+            }
+        ]
+
+## Coleção: Pedidos [/Pedidos]
+
+### Listar pedidos [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "servico":02,
+                "descricao":"Ursinho de pelúcia feito à mão",
+                "adicionais":"Escolha da cor: Preto",
+                "dataInicio":"2023-06-11",
+                "prazoCliente":,
+                "previsao":"2023-06-18",
+            },
+            {
+                "servico":01,
+                "descricao":"Miniatura de alimentos para decoração de cozinha",
+                "adicionais":"Escolha dos alimentos e utensílios específicos: Maçã, Mamão, Caixo de Banana",
+                "dataInicio":"2023-06-15",
+                "prazoCliente":,
+                "previsao":"2023-06-25",
+            },            
+            {
+                "servico":03,
+                "descricao":"Bonecas personalizadas para presentear em festas",
+                "adicionais":"Adição de acessórios: laços, chapéus e bolsas",
+                "dataInicio":"2023-06-14",
+                "prazoCliente":"2023-06-20",
+                "previsao":"2023-06-19",
+            },
+        ]
+
+### Fazer um pedido [POST]
+
++ Request (application/json)
+
+        {
+            {
+                "servico":03,
+                "descricao":"Gatinho fofo com laço e olhos brilhantes",
+                "adicionais":"Opção de personalização cor dos olhos: verde; e laço",
+                "dataInicio":"2023-06-14",
+                "prazoCliente":"2023-06-20",
+                "previsao":"2023-06-19",
+            }
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+        
+            Location: /Pedidos/1
+        
+    + Body
+
+            {
+                "servico":03,
+                "descricao":"Gatinho fofo com laço e olhos brilhantes",
+                "adicionais":"Opção de personalização cor dos olhos: verde; e laço",
+                "dataInicio":"2023-06-14",
+                "prazoCliente":"2023-06-20",
+                "previsao":"2023-06-19",
+            }
+
++ Response 400 (application/json)
+
+        {
+            "message":"Algum campo obrigatório não foi preenchido"
+        }
+
+### Editar um pedido [PUT]
+
++ Request (application/json)
+
+            {
+                "servico":03,
+                "descricao":"Gatinho fofo com laço e olhos brilhantes",
+                "adicionais":"Opção de personalização cor dos olhos: vermelho; e laço",
+                "dataInicio":"2023-06-15",
+                "prazoCliente":"2023-06-20",
+                "previsao":"2023-06-19",
+            }
+
++ Response 200 (application/json)
+
+    + Headers
+        
+            Location: /Pedidos/1
+        
+    + Body
+
+            {
+                "servico":03,
+                "descricao":"Gatinho fofo com laço e olhos brilhantes",
+                "adicionais":"Opção de personalização cor dos olhos: vermelho; e laço",
+                "dataInicio":"2023-06-14",
+                "prazoCliente":"2023-06-20",
+                "previsao":"2023-06-19",
+            }
+
++ Response 404 (application/json)
+
+        {
+            "message":"Pedido não encontrado"
+        }
+
++ Response 400 (application/json)
+
+        {
+            "message":"Algum campo obrigatório não foi preenchido"
+        }
+
+
+### Cancelar pedido [DELETE]
+
++ Request (application/json)
+
+    + Headers
+    
+            Location: /Pedidos/1
+
+
++ Response 200 (application/json)
+
+            {
+                "message":"Pedido cancelado"
+            }
+
++ Response 404 (application/json)
+
+        {
+            "message":"Pedido não encontrado"
+        }
+
++ Response 400 (application/json)
+
+        {
+            "message":"Algum campo obrigatório não foi preenchido"
+        }
